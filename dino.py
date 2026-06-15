@@ -15,6 +15,14 @@ BLACK = (0, 0, 0)
 GRAY = (180, 180, 180)
 
 GROUND_Y = 320
+bg_img = pygame.image.load("assets/download (2).jpg").convert()
+bg_img = pygame.transform.scale(bg_img,(800,400))
+
+dino_img = pygame.image.load("assets/dinosaur.png").convert_alpha()
+dino_img = pygame.transform.scale(dino_img,(40,50))
+
+cactus_img = pygame.image.load("assets/png-clipart-the-secret-life-of-pets-rabbit-illustration-snowball-domestic-rabbit-dog-pet-elephant-rabbit-animals-snout.png").convert_alpha()
+cactus_img = pygame.transform.scale(cactus_img,(30,50))
 
 font = pygame.font.SysFont(None, 40)
 small_font = pygame.font.SysFont(None, 28)
@@ -28,7 +36,7 @@ def draw_text(text, x, y, color=BLACK, big=True):
 
 def main_menu():
     while True:
-        screen.fill(WHITE)
+        screen.blit(bg_img, (0,0))
 
         draw_text("DINO JUMP", 310, 80)
         draw_text("1 - Play Easy Game", 280, 160, big=False)
@@ -98,7 +106,7 @@ def game_loop(mode):
 
     while running:
         clock.tick(FPS)
-        screen.fill(WHITE)
+        screen.blit(bg_img,(0,0))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -141,13 +149,13 @@ def game_loop(mode):
                 game_over = True
 
         # Draw ground
-        pygame.draw.line(screen, BLACK, (0, GROUND_Y), (WIDTH, GROUND_Y), 3)
+        screen.blit(bg_img,(0,0))
 
         # Draw dino
-        pygame.draw.rect(screen, BLACK, (dino_x, dino_y, dino_width, dino_height))
+        screen.blit(dino_img,(dino_x,dino_y))
 
         # Draw obstacle
-        pygame.draw.rect(screen, GRAY, (obstacle_x, obstacle_y, obstacle_width, obstacle_height))
+        screen.blit(cactus_img, (obstacle_x,obstacle_y))
 
         draw_text("Score: " + str(score), 20, 20, big=False)
         draw_text("Mode: " + mode, 20, 50, big=False)
